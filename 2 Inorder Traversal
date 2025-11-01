@@ -1,0 +1,46 @@
+public class Binary_trees_inOrder_2 {
+    
+    static class node {
+        int val;
+        node left;
+        node right;
+
+        node(int val) {
+            this.val = val;
+        }
+    }
+
+    public static void inOrder(node root) {
+        if (root == null) return;
+
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+
+    public static void main(String[] args) {
+
+        /*
+                 1
+                / \
+               2   3
+                \  /
+                 4 5
+        */
+
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        System.out.println("InOrder Traversal:");
+        inOrder(root);
+
+        /*
+         Output: 2 4 1 5 3
+         Time Complexity:  O(N)
+         Space Complexity: O(H) → O(N) worst, O(log N) best
+        */
+    }
+}
