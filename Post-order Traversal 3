@@ -1,0 +1,46 @@
+public class Binary_trees_postOrder_3 {
+
+    static class node {
+        int val;
+        node left;
+        node right;
+
+        node(int x) {
+            this.val = x;
+        }
+    }
+
+    public static void postOrder(node root) {
+        if (root == null) return;
+
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.val + " ");
+    }
+
+    public static void main(String[] args) {
+
+        /*
+                 1
+                / \
+               2   3
+                \  /
+                 4 5
+        */
+
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        System.out.println("PostOrder Traversal:");
+        postOrder(root);
+
+        /*
+         Output: 4 2 5 3 1
+         Time Complexity:  O(N)
+         Space Complexity: O(H) → O(N) worst, O(log N) best
+        */
+    }
+}
