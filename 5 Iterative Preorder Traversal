@@ -1,0 +1,55 @@
+import java.util.Stack;
+
+public class Basic_trees_pre_post_inor_iterative_5 {
+    static class node {
+        int val;
+        node left, right;
+        node(int val) { this.val = val; }
+    }
+
+    // ✅ Iterative Preorder Traversal
+    public static void pre_iterative(node root) {
+        Stack<node> st = new Stack<>();
+        if (root == null) return;
+
+        st.push(root);
+
+        while (!st.isEmpty()) {
+            node ele = st.pop();
+            System.out.print(ele.val + " ");  
+
+            if (ele.right != null) st.push(ele.right); 
+            if (ele.left != null) st.push(ele.left);   
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example Tree:
+        //        1
+        //       / \
+        //      2   3
+        //       \  /
+        //        4 5
+        //
+        // Preorder: Root → Left → Right
+        // Output: 1 2 4 3 5
+
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        System.out.println("Iterative PreOrder Traversal:");
+        pre_iterative(root);
+    }
+}
+
+/*
+Output:
+Iterative PreOrder Traversal:
+1 2 4 3 5
+
+Time Complexity:  O(N)  // visit each node once
+Space Complexity: O(H)  // height of tree (stack usage)
+*/
