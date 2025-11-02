@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class Binary_trees_LevelOrder_4 {
+    static class node {
+        int val;
+        node left, right;
+        node(int val) { this.val = val; }
+    }
+
+    public static List<List<Integer>> levelOrder(node root) {
+        // If tree is empty
+        if (root == null) return new ArrayList<>();
+
+        Queue<node> q = new LinkedList<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        q.add(root);
+        
+        while (!q.isEmpty()) {
+            int n = q.size();
+            List<Integer> list = new ArrayList<>();
+
+            for (int i = 0; i < n; i++) {
+                node ele = q.poll();
+                list.add(ele.val);
+
+                if (ele.left != null) q.add(ele.left);
+                if (ele.right != null) q.add(ele.right);
+            }
+            ans.add(list);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        // Constructing the tree:
+        //        1
+        //       / \
+        //      2   3
+        //     / \  /
+        //    6  4 5
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+        root.left.left = new node(6);
+
+        System.out.println("Level Order Traversal:");
+        System.out.println(levelOrder(root));  // [[1], [2, 3], [6, 4, 5]]
+    }
+}
+
+/*
+Output:
+Level Order Traversal:
+[[1], [2, 3], [6, 4, 5]]
+
+Time Complexity:  O(N)
+Space Complexity: O(N)
+*/
