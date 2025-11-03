@@ -5,7 +5,7 @@ public class Basic_trees_pre_post_inor_iterative_5 {
         int val;
         node left, right;
         node(int val) { this.val = val; }
-    }
+    } 
 
     // ✅ Iterative Preorder Traversal
     public static void pre_iterative(node root) {
