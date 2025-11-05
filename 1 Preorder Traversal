@@ -1,5 +1,5 @@
 public class Binary_trees_preOrder_1 {
-
+ 
     static class node {
         int val;
         node left;
