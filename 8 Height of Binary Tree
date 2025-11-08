@@ -1,0 +1,48 @@
+public class Binary_tree_height_4 {
+    static class node {
+        int val;
+        node left;
+        node right;
+        node(int val){
+            this.val = val;
+            left = null;
+            right = null;
+        }    
+    }
+
+    public static int height(node root){
+        if(root == null){
+           return 0;
+        }
+        int left = height(root.left);
+        int right = height(root.right);
+        int height = Math.max(left, right) + 1; // ✅ correct
+
+        return height;
+    }
+
+    public static void main(String[] args) {
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        System.out.println("Height of the tree : ");
+        System.out.println(height(root));
+    }
+}
+
+/*
+🕒 Time Complexity: O(n)
+📦 Space Complexity: O(h)   // h = height of the tree (recursion stack)
+🌳 Tree Structure:
+        1
+       / \
+      2   3
+       \  /
+        4 5
+🟢 Output:
+Height of the tree : 
+3
+*/
