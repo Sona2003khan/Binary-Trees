@@ -1,0 +1,55 @@
+public class Binary_tree_balanced_check_6 {
+
+    static class Node {
+        int val;
+        Node left, right;
+        Node(int val) {
+            this.val = val;
+        }
+    }
+
+    public static int check(Node root) {
+        if (root == null)
+            return 0;
+
+        int left = check(root.left);
+        if (left == -1) return -1;
+
+        int right = check(root.right);
+        if (right == -1) return -1;
+
+        if (Math.abs(left - right) > 1)
+            return -1;
+
+        return Math.max(left, right) + 1;
+    }
+
+    public static void main(String[] args) {
+        /*
+                  1
+                 / \
+                2   3
+                 \  /
+                  4 5
+        */
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.right = new Node(4);
+        root.right.left = new Node(5);
+
+        if (check(root) != -1)
+            System.out.println("Balanced Tree");
+        else
+            System.out.println("Not Balanced");
+    }
+}
+
+/*
+🧠 Time Complexity: O(n)
+   → Each node is visited exactly once during recursion.
+
+💾 Space Complexity: O(h)
+   → h = height of the tree (O(log n) for balanced, O(n) for skewed).
+
