@@ -1,0 +1,51 @@
+public class Binary_tree_diameter_7 {
+    
+    static class node {
+        int val;
+        node left;
+        node right;
+        node(int val){
+            this.val = val;
+            left = null;
+            right = null;
+        }    
+    }
+
+    static int diameter = 0;
+
+    public static int diameter(node root){
+        if(root == null){
+            return 0;
+        }
+
+        int left = diameter(root.left);
+        int right = diameter(root.right);
+
+        diameter = Math.max(diameter, left + right);
+
+        return Math.max(left, right) + 1;
+    }
+
+    public static void main(String[] args) {
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        diameter(root);
+        System.out.println(diameter);
+    }
+}
+
+/*
+Output: 4
+Time Complexity: O(N)
+Space Complexity: O(H)
+Tree:
+        1
+       / \
+      2   3
+       \  /
+        4 5
+*/
