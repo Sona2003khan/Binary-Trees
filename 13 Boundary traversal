@@ -1,0 +1,105 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Binary_tree_boundary_traveersal_10 {
+    static class node {
+        int val;
+        node left;
+        node right;
+        node(int val){
+            this.val=val;
+            left=null;
+            right=null;
+        }    
+    }
+
+    public static List<Integer> boundary(node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if(root == null) return res;
+
+        res.add(root.val);
+        leftBoundary(root.left ,res);
+        addLeaves(root ,res);
+        rightBoundary(root.right ,res);
+        return res;
+    }
+
+    static boolean leafNode(node root){
+        return root.left == null && root.right == null;
+    }
+
+    static void leftBoundary(node root ,ArrayList<Integer> res){
+        node curr = root;
+        while(curr != null){
+            if(!leafNode(curr)){
+                res.add(curr.val);
+            }
+            if(curr.left != null){
+                curr = curr.left;
+            }
+            else{
+                curr = curr.right;
+            }
+        }
+    }
+
+    static void rightBoundary(node root ,ArrayList<Integer> res){
+        ArrayList<Integer> temp = new ArrayList<>();
+        node curr = root;
+        while(curr != null){
+            if(!leafNode(curr)){
+                temp.add(curr.val);
+            }
+            if(curr.right != null){
+                curr = curr.right;
+            }
+            else{
+                curr = curr.left;
+            }
+        }
+        Collections.reverse(temp);
+        for(int ele : temp){
+            res.add(ele);
+        }
+    }
+
+    static void addLeaves(node root ,ArrayList<Integer> res){
+        if(root == null) return;
+
+        if(leafNode(root)){
+            res.add(root.val);
+            return;
+        }
+        if(root.left != null){
+            addLeaves(root.left ,res);
+        }
+        if(root.right != null){
+            addLeaves(root.right ,res);
+        }
+    }
+
+    public static void main(String[] args) {
+        node root = new node(1);
+        root.left = new node(2);
+        root.left.left = new node(6);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+        root.right.left.left = new node(9);
+        root.right.left.right = new node(10);
+
+        System.out.println(boundary(root));
+    }
+}
+
+// Time Complexity: O(N)
+// Space Complexity: O(N)
+// Tree Used:
+//          1
+//         / \
+//        2   3
+//       / \  /
+//      6  4 5
+//          / \
+//         9  10
