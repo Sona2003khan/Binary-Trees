@@ -1,0 +1,66 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Binary_tree_identical_8 {
+
+    static class node {
+        int val;
+        node left;
+        node right;
+        node(int val){
+            this.val = val;
+            left = null;
+            right = null;
+        }    
+    }
+
+    public static boolean isSameTree(node p, node q) {
+        Queue<node> qu = new LinkedList<>();
+        qu.add(p);
+        qu.add(q);
+
+        while(!qu.isEmpty()){
+            node first = qu.poll();
+            node second = qu.poll();
+            if(first == null && second == null){
+                continue;
+            }
+            else if(first == null || second == null || first.val != second.val){
+                return false;
+            }
+            qu.add(first.left);
+            qu.add(second.left);
+            qu.add(first.right);
+            qu.add(second.right);
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.right = new node(4);
+        root.right.left = new node(5);
+
+        node root2 = new node(1);
+        root2.left = new node(2);
+        root2.right = new node(3);
+        root2.left.right = new node(4);
+        root2.right.left = new node(9);
+
+        System.out.println(isSameTree(root, root2));
+    }
+}
+
+/*
+Output: false
+Time Complexity: O(N)
+Space Complexity: O(N)
+Tree:
+        1               1
+       / \             / \
+      2   3           2   3
+       \  /             \  /
+        4 5              4 9
+*/
